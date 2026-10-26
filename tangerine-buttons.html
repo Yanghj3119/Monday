@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>제주 귤 뽑기 - 알람 버튼</title>
+<style>
+  body {
+    margin: 0; min-height: 100vh;
+    font-family: "Malgun Gothic", sans-serif;
+    background: linear-gradient(#bde6ff, #f2faff 70%);
+    color: #3b2a1a; text-align: center;
+  }
+  h1 { margin: 40px 0 4px; }
+  p { margin: 0 0 24px; color: #666; font-size: 14px; }
+  .grid {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 16px; max-width: 1000px; margin: 0 auto; padding: 0 16px 40px;
+  }
+  .tree-btn {
+    position: relative; border: 0; background: rgba(255,255,255,.5);
+    border-radius: 16px; padding: 8px; cursor: pointer;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .tree-btn:hover { transform: translateY(-4px); box-shadow: 0 6px 16px rgba(0,0,0,.15); }
+  .tree-btn:active { transform: scale(.95); }
+  .tree-btn svg { width: 100%; height: auto; display: block; }
+  .num {
+    position: absolute; top: 8px; left: 8px; width: 30px; height: 30px;
+    border-radius: 50%; background: #fff; border: 2px solid #f7c566;
+    color: #e07b00; font-weight: bold; line-height: 26px; font-size: 16px;
+  }
+  @media (max-width: 700px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+  <h1>🍊 제주 귤 뽑기</h1>
+  <p>귤나무를 1번부터 10번까지 차례대로 눌러 보세요!</p>
+
+  <!-- 귤나무 그림 (한 번 정의하고 10번 재사용) -->
+  <svg width="0" height="0" style="position:absolute">
+    <symbol id="tree" viewBox="0 0 400 360">
+      <ellipse cx="200" cy="325" rx="195" ry="22" fill="#8fcf63"/>
+      <ellipse cx="200" cy="322" rx="157" ry="12" fill="#7bbf55"/>
+      <path d="M182 190 H218 L224 322 H176 Z" fill="#8b5a33"/>
+      <circle cx="105" cy="140" r="55" fill="#3d9a4b"/>
+      <circle cx="295" cy="140" r="55" fill="#3d9a4b"/>
+      <circle cx="200" cy="110" r="95" fill="#3d9a4b"/>
+      <ellipse cx="200" cy="170" rx="150" ry="55" fill="#3d9a4b"/>
+      <circle cx="150" cy="75" r="55" fill="#2f8a3d" opacity=".85"/>
+      <circle cx="265" cy="105" r="48" fill="#2f8a3d" opacity=".7"/>
+      <g id="orange">
+        <circle r="18" fill="#ff9a1a"/>
+        <circle cx="-6" cy="-6" r="5" fill="#ffc266"/>
+        <path d="M0 -18 l8 -10" stroke="#2a7a30" stroke-width="3" stroke-linecap="round"/>
+      </g>
+      <use href="#orange" x="148" y="55"/>
+      <use href="#orange" x="210" y="35"/>
+      <use href="#orange" x="190" y="100"/>
+      <use href="#orange" x="268" y="88"/>
+      <use href="#orange" x="95" y="178"/>
+      <use href="#orange" x="158" y="178"/>
+      <use href="#orange" x="245" y="162"/>
+      <use href="#orange" x="305" y="172"/>
+    </symbol>
+  </svg>
+
+  <div class="grid" id="grid"></div>
+
+<script>
+  const grid = document.getElementById('grid');
+  for (let i = 1; i <= 10; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'tree-btn';
+    btn.setAttribute('aria-label', i + '번 귤나무');
+    btn.innerHTML =
+      '<span class="num">' + i + '</span>' +
+      '<svg viewBox="0 0 400 360"><use href="#tree"/></svg>';
+    btn.addEventListener('click', () => alert(i));
+    grid.appendChild(btn);
+  }
+</script>
+</body>
+</html>
